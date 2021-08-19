@@ -1,9 +1,13 @@
 // @ts-ignore
+// This is the basic command interface that must be implemented by the concrete commands
+// in order to use its executive functionality in a way so that the invoker can 
+// use it and it can take a reciever in order to pass the instructions to the reciever.
 export interface Command {
     execute(): string;
 }
 
-export class Light {
+// Bellow are the two recievers.
+export class LightReciever {
     public on(): string {
         return 'on';
     }
@@ -15,7 +19,7 @@ export class Light {
 
 let brightness: number = 0;
 
-export class RedLight {
+export class RedLightReciever {
     public on(): string {
         return `red${brightness}`;
     }
@@ -36,10 +40,11 @@ export class RedLight {
     }
 }
 
+// Bellow are the concrete command class type.
 export class LightOnCommand implements Command {
-    private sampleLight: Light;
+    private sampleLight: LightReciever;
 
-    constructor(sampleLight: Light) {
+    constructor(sampleLight: LightReciever) {
         this.sampleLight = sampleLight;
     }
 
@@ -49,9 +54,9 @@ export class LightOnCommand implements Command {
 }
 
 export class LightOffCommand implements Command {
-    private sampleLight: Light;
+    private sampleLight: LightReciever;
 
-    constructor(sampleLight: Light) {
+    constructor(sampleLight: LightReciever) {
         this.sampleLight = sampleLight;
     }
 
@@ -62,9 +67,9 @@ export class LightOffCommand implements Command {
 
 
 export class RedLightOnCommand implements Command {
-    sampleLight: RedLight;
+    sampleLight: RedLightReciever;
 
-    constructor(sampleLight: RedLight) {
+    constructor(sampleLight: RedLightReciever) {
         this.sampleLight = sampleLight;
     }
 
@@ -74,9 +79,9 @@ export class RedLightOnCommand implements Command {
 }
 
 export class RedLightOffCommand implements Command {
-    sampleLight: RedLight;
+    sampleLight: RedLightReciever;
 
-    constructor(sampleLight: RedLight) {
+    constructor(sampleLight: RedLightReciever) {
         this.sampleLight = sampleLight;
     }
 
@@ -86,9 +91,9 @@ export class RedLightOffCommand implements Command {
 }
 
 export class RedLightIncBrightnessCommand implements Command {
-    sampleLight: RedLight;
+    sampleLight: RedLightReciever;
 
-    constructor(sampleLight: RedLight) {
+    constructor(sampleLight: RedLightReciever) {
         this.sampleLight = sampleLight;
     }
 
@@ -99,9 +104,9 @@ export class RedLightIncBrightnessCommand implements Command {
 }
 
 export class RedLightDecBrightnessCommand implements Command {
-    sampleLight: RedLight;
+    sampleLight: RedLightReciever;
 
-    constructor(sampleLight: RedLight) {
+    constructor(sampleLight: RedLightReciever) {
         this.sampleLight = sampleLight;
     }
 
@@ -110,7 +115,7 @@ export class RedLightDecBrightnessCommand implements Command {
     }
 }
 
-
+// This the invoker that is used by the client to pass commands through it to the reciever where the real executions happen.
 export class RemoteControllerInvoker {
     sampleCommand!: Command;
 
