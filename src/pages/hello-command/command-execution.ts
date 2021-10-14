@@ -37,7 +37,6 @@ export function executor(command: string): string {
             result = redOn ? commandReciever(new RedLightIncBrightnessCommand(new RedLightReciever())): commandReciever(new LightOnCommand(new RedLightReciever()));
             break;
         case "decrease":
-            console.log("decrease");
             result = redOn ? commandReciever(new RedLightDecBrightnessCommand(new RedLightReciever())): commandReciever(new LightOnCommand(new RedLightReciever()));
             break;
         case "red":

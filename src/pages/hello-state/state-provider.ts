@@ -1,14 +1,8 @@
-export function getState(message: string) {
-  switch (message) {
-    case "enter":
-      return "open";
+import { Gate } from "../../patterns/state/gate-state";
 
-    case "payOk":
-      return "open";
-
-    case "payFailed":
-      return "closed";
-    default:
-      return "processing";
-  }
+export function getState(message: String): String {
+  let myGate = new Gate();
+  myGate.changeState(message);
+  console.log("state-provider " + myGate.state.stateString);
+  return myGate.state.stateString;
 }
